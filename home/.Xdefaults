@@ -1,7 +1,3 @@
-URxvt*background: Black
-URxvt*foreground: White
-URxvt*geometry: 80x30
-URxvt*scrollBar: false
 
 "URxvt.font: 9x15
 
@@ -12,25 +8,162 @@ Xft.rgba:       rgb
 Xft.hinting:    true
 Xft.hintstyle:  hintfull
 
-! -- Fonts -- !
-URxvt.font:xft:Monospace:pixelsize=12
-URxvt.boldfont:xft:Monospace-Bold:pixelsize=12
 
-URxvt.scrollBar:            true
-URxvt.scrollBar_floating:   true
-URxvt.scrollBar_right:      false
-URxvt.scrollColor:          #0c0c0c
-URxvt.saveLines:            5500
-URxvt.perl-ext-common:      default,matcher,-searchable-scrollback,clipboard,keyboard-select
-URxvt.url-launcher:         chromium
-URxvt.matcher.button:       1
-URxvt.colorUL:              #5f87d7
-URxvt.colorIT:              #d81860
-URxvt.cursorBlink:          true
-URxvt.keysym.Mod4-Meta-c:   perl:clipboard:copy
-URxvt.keysym.Mod4-Meta-v:   perl:clipboard:paste
-URxvt.keysym.Mod4-C-v:      perl:clipboard:paste_escaped
-URxvt.copyCommand:          xclip -i -selection clipboard
-URxvt.pasteCommand:         xclip -o -selection clipboard
-URxvt.keysym.M-Escape:      perl:keyboard-select:activate
-URxvt.urgentOnBell:         true
+! URxvt*rxvt-unicode (urxvt) v9.21 - released: 2014-12-31
+! URxvt*options: perl,xft,styles,combining,blink,iso14755,unicode3,encodings=eu+vn+jp+jp-ext+kr+zh+zh-ext,fade,transparent,tint,XIM,frills,selectionscrolling,wheel,slipwheel,cursorBlink,pointerBlank,scrollbars=plain+rxvt+NeXT+xterm
+! URxvt*Usage: urxvt [options] [-e command args]
+! URxvt*termName:                       string
+! URxvt*geometry:                       geometry
+! URxvt*chdir:                          string
+! URxvt*reverseVideo:                   boolean
+! URxvt*loginShell:                     boolean
+! URxvt*multiClickTime:                 number
+! URxvt*jumpScroll:                     boolean
+! URxvt*skipScroll:                     boolean
+! URxvt*pastableTabs:                   boolean
+! URxvt*scrollstyle:                    plain
+! URxvt*scrollBar:                      false
+! URxvt*scrollBar_right:                boolean
+! URxvt*scrollBar_floating:             boolean
+! URxvt*scrollBar_align:                mode
+! URxvt*thickness:                      number
+! URxvt*scrollTtyOutput:                boolean
+! URxvt*scrollTtyKeypress:              boolean
+! URxvt*scrollWithBuffer:               boolean
+! URxvt*inheritPixmap:                  boolean
+ URxvt*transparent:                    false
+! URxvt*tintColor:                      #3E3E3E
+! URxvt*shading:                        50
+! URxvt*blurRadius:                     HxV
+! URxvt*fading:                         number
+! URxvt*fadeColor:                      color
+! URxvt*utmpInhibit:                    boolean
+! URxvt*urgentOnBell:                   boolean
+! URxvt*visualBell:                     boolean
+! URxvt*mapAlert:                       boolean
+! URxvt*meta8:                          boolean
+! URxvt*mouseWheelScrollPage:           boolean
+! URxvt*tripleclickwords:               boolean
+! URxvt*insecure:                       boolean
+! URxvt*cursorUnderline:                boolean
+! URxvt*cursorBlink:                    boolean
+! URxvt*pointerBlank:                   boolean
+ URxvt*background:                     #27261f
+ URxvt*foreground:                     #d3d3a9
+! URxvt*foreground:                     #fffbe2
+! Normal
+! color0    black
+! color1    yellow
+! color2    blue-green
+! color3    orange
+! color4    green
+! color5    magenta
+! color6    red
+! color7    white
+
+ URxvt*color0:    #000000
+ URxvt*color1:    #aaab46
+ URxvt*color2:    #4d7f5c
+ URxvt*color3:    #c79342
+ URxvt*color4:    #88a057
+ URxvt*color5:    #9b4769
+ URxvt*color6:    #b15050
+ URxvt*color7:    #d3d3a9
+
+! Light
+! color8    black
+! color9    yellow
+! color10    blue-green
+! color11    orange
+! color12    green
+! color13    magenta
+! color14    red
+! color15    white
+
+ URxvt*color8:    #000000
+ URxvt*color9:    #cfd074
+ URxvt*color10:    #6e987b
+ URxvt*color11:    #ebba6e
+ URxvt*color12:    #abc080
+ URxvt*color13:    #bc7390
+ URxvt*color14:    #d68181
+ URxvt*color15:    #d3d3a9
+
+! URxvt*colorBD:                        white
+! URxvt*colorIT:                        white
+! URxvt*colorUL:                        color
+! URxvt*colorRV:                        color
+! URxvt*underlineColor:                 white
+! URxvt*scrollColor:                    color
+! URxvt*troughColor:                    color
+ URxvt*highlightColor:                 #d3d3a9
+ URxvt*highlightTextColor:             #27261f
+ URxvt*cursorColor:                    #d3d3a9
+! URxvt*cursorColor2:                   color
+! URxvt*pointerColor:                   color
+! URxvt*pointerColor2:                  color
+! URxvt*borderColor:                    color
+! URxvt*iconFile:                       file
+ URxvt*font:                           xft:Monospace:pixelsize=12
+ URxvt*boldFont:                       xft:Monospace-Bold:pixelsize=12
+! URxvt*italicFont:                     fontname
+! URxvt*boldItalicFont:                 fontname
+! URxvt*intensityStyles:                boolean
+! URxvt*inputMethod:                    name
+! URxvt*preeditType:                    style
+! URxvt*imLocale:                       string
+! URxvt*imFont:                         fontname
+! URxvt*title:                          string
+! URxvt*iconName:                       string
+! URxvt*saveLines:                      number
+! URxvt*buffered:                       boolean
+! URxvt*depth:                          number
+! URxvt*visual:                         number
+! URxvt*transient-for:                  windowid
+! URxvt*override-redirect:              boolean
+! URxvt*hold:                           boolean
+! URxvt*externalBorder:                 number
+! URxvt*internalBorder:                 number
+! URxvt*borderLess:                     boolean
+! URxvt*lineSpace:                      number
+ URxvt*letterSpace:                    0
+! URxvt*skipBuiltinGlyphs:              boolean
+! URxvt*pointerBlankDelay:              number
+! URxvt*backspacekey:                   string
+! URxvt*deletekey:                      string
+! URxvt*print-pipe:                     string
+! URxvt*modifier:                       modifier
+! URxvt*cutchars:                       string
+! URxvt*answerbackString:               string
+! URxvt*secondaryScreen:                boolean
+! URxvt*secondaryScroll:                boolean
+! URxvt*perl-lib:                       string
+! URxvt*perl-eval:                      perl-eval
+! URxvt*perl-ext-common:                string
+! URxvt*perl-ext:                       string
+! URxvt*iso14755:                       boolean
+! URxvt*iso14755_52:                    boolean
+! URxvt*xrm:                            string
+! URxvt*keysym.sym:                     keysym
+! URxvt*background.border:              boolean
+! URxvt*background.expr:                string
+! URxvt*background.interval:            seconds
+! URxvt*bell-command:                   string
+! URxvt*kuake.hotkey:                   string
+! URxvt*matcher.button:                 string
+! URxvt*matcher.launcher:               string
+! URxvt*matcher.launcher.*:             string
+! URxvt*matcher.pattern.*:              string
+! URxvt*matcher.rend.*:                 string
+! URxvt*remote-clipboard.fetch:         string
+! URxvt*remote-clipboard.store:         string
+! URxvt*searchable-scrollback:          string
+! URxvt*selection-autotransform.*:      string
+! URxvt*selection-pastebin.cmd:         string
+! URxvt*selection-pastebin.url:         string
+! URxvt*selection.pattern-0:            string
+! URxvt*tab-bg:                         colour
+! URxvt*tab-fg:                         colour
+! URxvt*tabbar-bg:                      colour
+! URxvt*tabbar-fg:                      colour
+ URxvt*url-launcher:                   chromium
