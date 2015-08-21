@@ -156,6 +156,9 @@ before layers configuration."
    dotspacemacs-default-package-repository nil
    )
   ;; User initialization goes here
+
+  (load "~/.nix-profile/share/emacs/site-lisp/nix-mode.el")
+
   )
 
 (defun dotspacemacs/config ()

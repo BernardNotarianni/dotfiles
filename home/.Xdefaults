@@ -21,7 +21,7 @@ Xft.hintstyle:  hintfull
 ! URxvt*jumpScroll:                     boolean
 ! URxvt*skipScroll:                     boolean
 ! URxvt*pastableTabs:                   boolean
-! URxvt*scrollstyle:                    plain
+ URxvt*scrollstyle:                    plain
 ! URxvt*scrollBar:                      false
 ! URxvt*scrollBar_right:                boolean
 ! URxvt*scrollBar_floating:             boolean

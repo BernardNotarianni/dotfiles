@@ -183,8 +183,6 @@ client.urgent           #d93e3e #d93e3e #29000a #d93e3e
 #client.placeholder      #000000 #0c0c0c #ffffff #000000
 
 #Auto-start programs
-#exec --no-startup-id compton -cfbC --fade-delta=5 --fade-out-step=0.10  --fade-in-step=0.10 --refresh-rate 60
-exec --no-startup-id compton -b --refresh-rate 60 --vsync drm
 exec --no-startup-id urxvt
 
 #custom program binds
