@@ -194,3 +194,10 @@ hide_edge_borders both
 
 #Mouse focus
 #focus_follows_mouse yes
+
+# floatin emacs-capture frame 
+for_window [instance="emacs-capture"] floating enable
+
+bindsym $mod+less exec ~/dotfiles/bin/emacs-capture --eval '(org-capture nil "l")'
+
+exec --no-startup-id emacs --daemon
