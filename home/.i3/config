@@ -197,6 +197,7 @@ hide_edge_borders both
 
 # floatin emacs-capture frame 
 for_window [instance="emacs-capture"] floating enable
+for_window [instance="emacs-capture"] border pixel 1
 
 bindsym $mod+less exec ~/dotfiles/bin/emacs-capture --eval '(org-capture nil "l")'
 bindsym $mod+exclam exec emacsclient -c
