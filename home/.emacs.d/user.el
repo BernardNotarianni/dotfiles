@@ -1,7 +1,7 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by ohai-emacs at startup.
 
-(set-cursor-color "gold")
+(setq default-frame-alist '((cursor-color . "gold")))
 
 (setq backup-directory-alist
       `((".*" . ,temporary-file-directory)))
