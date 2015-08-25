@@ -1,10 +1,15 @@
 ;; -*- mode: emacs-lisp -*-
 ;; This file is loaded by ohai-emacs at startup.
 
+(set-cursor-color "gold")
+
+(setq backup-directory-alist
+      `((".*" . ,temporary-file-directory)))
+(setq auto-save-file-name-transforms
+      `((".*" ,temporary-file-directory t)))
 
 
-
-;;; 
+;;;
 ;;; Org capture customisation
 ;;; from http://cestdiego.github.io/blog/2015/08/19/org-protocol/
 ;;;
@@ -12,7 +17,6 @@
 (require 'org-capture)
 (require 'org-protocol)
 
-;;; Org Capture
 ;;;; Thank you random guy from StackOverflow
 ;;;; http://stackoverflow.com/questions/23517372/hook-or-advice-when-aborting-org-capture-before-template-selection
 

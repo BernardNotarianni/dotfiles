@@ -3,9 +3,9 @@
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- '(blink-cursor-mode nil)
  '(column-number-mode t)
  '(haskell-mode-hook (quote (turn-on-haskell-indentation turn-on-haskell-doc)) t)
+ '(menu-bar-mode nil)
  '(ohai-personal-taste/paredit t)
  '(ohai-personal-taste/run-wizard nil)
  '(ohai-personal-taste/splash nil)

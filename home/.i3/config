@@ -199,5 +199,6 @@ hide_edge_borders both
 for_window [instance="emacs-capture"] floating enable
 
 bindsym $mod+less exec ~/dotfiles/bin/emacs-capture --eval '(org-capture nil "l")'
+bindsym $mod+exclam exec emacsclient -c
 
 exec --no-startup-id emacs --daemon
