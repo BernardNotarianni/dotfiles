@@ -104,8 +104,8 @@ Xft.hintstyle:  hintfull
 ! URxvt*pointerColor2:                  color
 ! URxvt*borderColor:                    color
 ! URxvt*iconFile:                       file
- URxvt*font:                           xft:Monospace:pixelsize=12
- URxvt*boldFont:                       xft:Monospace-Bold:pixelsize=12
+ URxvt*font:                           xft:Monospace:pixelsize=14
+ URxvt*boldFont:                       xft:Monospace-Bold:pixelsize=14
 ! URxvt*italicFont:                     fontname
 ! URxvt*boldItalicFont:                 fontname
 ! URxvt*intensityStyles:                boolean
