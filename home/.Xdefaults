@@ -1,5 +1,5 @@
 
-"URxvt.font: 9x15
+"URxvt.font: 9x15"
 
 !-- Xft settings -- !
 Xft.dpi:        96
@@ -12,7 +12,7 @@ Xft.hintstyle:  hintfull
 ! URxvt*rxvt-unicode (urxvt) v9.21 - released: 2014-12-31
 ! URxvt*options: perl,xft,styles,combining,blink,iso14755,unicode3,encodings=eu+vn+jp+jp-ext+kr+zh+zh-ext,fade,transparent,tint,XIM,frills,selectionscrolling,wheel,slipwheel,cursorBlink,pointerBlank,scrollbars=plain+rxvt+NeXT+xterm
 ! URxvt*Usage: urxvt [options] [-e command args]
-! URxvt*termName:                       string
+ URxvt*termName:                       rxvt
 ! URxvt*geometry:                       geometry
 ! URxvt*chdir:                          string
 ! URxvt*reverseVideo:                   boolean
