@@ -193,7 +193,7 @@ bindsym --release $mod+l exec --no-startup-id ~/bin/screenlock.sh
 hide_edge_borders both
 
 #Mouse focus
-#focus_follows_mouse yes
+focus_follows_mouse no
 
 # floating emacs-capture frame
 for_window [instance="emacs-capture"] floating enable
