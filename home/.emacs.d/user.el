@@ -17,6 +17,10 @@
 (require 'org-capture)
 (require 'org-protocol)
 
+(global-set-key (kbd "C-c o")
+                (lambda () (interactive) (find-file "~/perso/organizer.org")))
+
+
 ;;;; Thank you random guy from StackOverflow
 ;;;; http://stackoverflow.com/questions/23517372/hook-or-advice-when-aborting-org-capture-before-template-selection
 
@@ -36,5 +40,23 @@
 ;;;; Add idea, mind-onanism, contacts, movies to download das
 (setq org-capture-templates
       '(("l" "Temp Links from the interwebs" item
-         (file+headline "links.org" "Temporary Links")
-         "%?\nEntered on %U\n \%i\n %a")))
+         (file+headline "~/perso/organizer.org" "Temporary Links")
+         "%?\nEntered on %U\n \%i\n %a")
+
+        ("j" "Journal entry" plain
+         (file+datetree "~/perso/journal.org")
+         "%K - %a\n%i\n%?\n"
+         :unnarrowed t)
+        ("J" "Journal entry with date" plain
+         (file+datetree+prompt "~/perso/journal.org")
+         "%K - %a\n%i\n%?\n"
+         :unnarrowed t)
+
+        ("n" "Daily note" table-line (file+olp "~/perso/organizer.org" "Daily notes")
+          "| %u | %^{Note} |"
+          :immediate-finish t)
+        ("r" "Notes" entry
+          (file+datetree "~/perso/organizer.org")
+          "* %?\n\n%i\n")
+
+        ))
