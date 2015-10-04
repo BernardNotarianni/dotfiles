@@ -10,6 +10,12 @@
 
 
 ;;;
+;;; nix mode
+;;;
+
+(require 'nix-mode)
+
+;;;
 ;;; Org capture customisation
 ;;; from http://cestdiego.github.io/blog/2015/08/19/org-protocol/
 ;;;
@@ -60,3 +66,26 @@
           "* %?\n\n%i\n")
 
         ))
+
+;; customize flycheck for otp standard directory structure
+(require 'flycheck)
+(flycheck-define-checker erlang-otp
+  "An Erlang syntax checker using the Erlang interpreter."
+  :command ("erlc" "-o" temporary-directory "-Wall"
+            "-I" "../include" "-I" "../../include"
+            "-I" "../../../include"
+            "-I" "../../lib" ;; for nitrogen
+            source)
+  :error-patterns
+  ((warning line-start (file-name) ":" line ": Warning:" (message) line-end)
+   (error line-start (file-name) ":" line ": " (message) line-end)))
+
+(add-hook 'erlang-mode-hook
+          (lambda ()
+            (flycheck-select-checker 'erlang-otp)
+            (flycheck-mode)))
+
+
+;; nitrogen mode
+(add-to-list 'load-path "/home/bernard/nitrogen/support/nitrogen-mode")
+(require 'nitrogen-mode)
