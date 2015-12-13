@@ -10,6 +10,8 @@
       ./hardware-configuration.nix
     ];
 
+  hardware.pulseaudio.enable = true;
+
   # Use the gummiboot efi boot loader.
   boot.loader.gummiboot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
@@ -18,6 +20,8 @@
     options snd_hda_intel enable=0,1
   '';
 
+  boot.kernelPackages = pkgs.linuxPackages_4_2;
+  
   fileSystems."/tmp" = {
     device = "tmpfs";
     fsType = "tmpfs";
@@ -25,13 +29,14 @@
   };
 
   # fileSystems."/windows" = {
-  #  device = "/dev/disk/by-label/Windows8_OS";
-  #  fsType = "ntfs-3g";
-  #  options = "exec,permissions";
+  #  device = "/dev/sda4";
+  #  fsType = "ntfs";
+  #  options = "nls=utf8,umask=0222";
   # };
 
   networking = {
-    hostName = "T450s"; # Define your hostname.
+    hostName = "t450s"; # Define your hostname.
+    extraHosts = "127.0.0.1 t450s";
     wireless.enable = true;
   };
 
@@ -63,14 +68,15 @@
   # services.printing.enable = true;
 
 
-  services.mysql = {
-    enable = true;
-    package = pkgs.mysql;
-  };
+  # services.mysql = {
+  #  enable = true;
+  #  package = pkgs.mysql;
+  # };
 
 
   # Enable the X11 windowing system.
-  services.xserver.videoDrivers = [ "intel-2015-07-22" ];
+  #services.xserver.videoDrivers = [ "intel-2015-07-22" ];
+  services.xserver.videoDrivers = [ "intel" ];
   services.xserver.enable = true;
   services.xserver.layout = "fr";
   services.xserver.xkbOptions = "eurosign:e";
@@ -111,12 +117,21 @@
     ];
   };
 
-  users.extraUsers.bernard = 
+  users.extraUsers.bernard =
    { isNormalUser = true;
      home = "/home/bernard";
      description = "Bernard Notarianni";
      group = "users";
      password = "bernard";
+     createHome = true;
+   };
+
+  users.extraUsers.baton =
+   { isNormalUser = true;
+     home = "/home/baton";
+     description = "Application Baton de parole";
+     group = "users";
+     password = "baton";
      createHome = true;
    };
 
