@@ -88,5 +88,35 @@
 
 
 ;; nitrogen mode
-(add-to-list 'load-path "/home/bernard/nitrogen/support/nitrogen-mode")
-(require 'nitrogen-mode)
+;;(add-to-list 'load-path "/home/bernard/nitrogen/support/nitrogen-mode")
+;;(require 'nitrogen-mode)
+
+
+;;
+;; Flycheck for Elixir
+;;
+
+;; A Flycheck checker that uses Mix, so it finds project deps.
+
+(flycheck-define-checker elixir-mix-bernard
+  "An Elixir syntax checker using the Elixir interpreter.
+     See URL `http://elixir-lang.org/'."
+  :command ("mix"
+            "compile"
+            source)
+  :predicate is-mix-project-p
+  :error-patterns
+  ((error line-start "** (" (zero-or-more not-newline) ") "
+          (file-name) ":" line ": " (message) line-end)
+   (warning line-start
+            (file-name) ":"
+            line ": "
+            (message)
+            line-end))
+  :modes elixir-mode)
+
+(add-to-list 'flycheck-checkers 'elixir-mix-bernard)
+
+(defun is-mix-project-p ()
+  (let ((mix-project-root (locate-dominating-file (buffer-file-name) "mix.exs")))
+    (if mix-project-root (cd mix-project-root) nil)))
