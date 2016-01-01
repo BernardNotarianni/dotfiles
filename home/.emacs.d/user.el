@@ -91,6 +91,7 @@
 ;;(add-to-list 'load-path "/home/bernard/nitrogen/support/nitrogen-mode")
 ;;(require 'nitrogen-mode)
 
+;;====================================================================
 
 ;;
 ;; Flycheck for Elixir
@@ -100,7 +101,7 @@
 
 (flycheck-define-checker elixir-mix-bernard
   "An Elixir syntax checker using the Elixir interpreter.
-     See URL `http://elixir-lang.org/'."
+  See URL `http://elixir-lang.org/'."
   :command ("mix"
             "compile"
             source)
@@ -120,3 +121,47 @@
 (defun is-mix-project-p ()
   (let ((mix-project-root (locate-dominating-file (buffer-file-name) "mix.exs")))
     (if mix-project-root (cd mix-project-root) nil)))
+
+;;
+;; Open new frame with Phoenix templates/view/controller/model
+;;
+
+(defun open-mvc ()
+  "Open Phoenix MVC files in current frame"
+  (interactive)
+  (let* ((root (mix-project-root))
+         (files (phoenix-controllers root))
+         (concept (completing-read "Open MVC concept: " files)))
+    (open-mvc-from-root (mix-project-root) concept)))
+
+
+(defun open-mvc-from-root (root concept)
+  (let ((files (mvc-files root concept)))
+    (delete-other-windows)
+    (find-file (first files))
+    (mapcar (lambda (f)
+              (select-window (split-window-below))
+              (find-file f))
+            (cdr files))
+    (balance-windows)))
+
+(defun mix-project-root ()
+  (let ((current-path (if (string= "dired-mode" major-mode)
+                          default-directory
+                        (buffer-file-name))))
+    (locate-dominating-file current-path "mix.exs")))
+
+(defun mvc-files (root concept)
+  (mapcar (lambda (s) (format s root concept))
+          '("%s/web/templates/%s"
+            "%s/web/views/%s_view.ex"
+            "%s/web/controllers/%s_controller.ex"
+            "%s/web/models/%s.ex")))
+
+(defun phoenix-controllers (root-dir)
+  (mapcar 'controller-name-to-concept
+          (directory-files (concat root-dir "/web/controllers") nil ".ex")))
+
+(defun controller-name-to-concept (file-name)
+  (string-match "\\(.*\\)_controller.ex" file-name)
+  (match-string 1 file-name))
