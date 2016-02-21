@@ -140,7 +140,7 @@
 
   # serveur nginx
   services.nginx.enable = true;
-  services.nginx.config = pkgs.lib.readFile /home/bernard/baton-de-parole/server/nginx/nginx.conf.bernard;
+  # services.nginx.config = pkgs.lib.readFile /home/bernard/baton-de-parole/server/nginx/nginx.conf.bernard;
   networking.firewall.allowedTCPPorts = [ 8080 8090 3000 ];
 
   # postgres
