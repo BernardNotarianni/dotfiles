@@ -27,6 +27,11 @@
 (global-set-key (kbd "C-c o")
                 (lambda () (interactive) (find-file "~/perso/organizer.org")))
 
+(add-hook 'org-mode-hook #'(lambda ()
+                             ;; make the lines in the buffer wrap around the edges of the screen.
+                             ;; to press C-c q  or fill-paragraph ever again!
+                             (visual-line-mode)
+                             (org-indent-mode)))
 
 ;;;; Thank you random guy from StackOverflow
 ;;;; http://stackoverflow.com/questions/23517372/hook-or-advice-when-aborting-org-capture-before-template-selection
