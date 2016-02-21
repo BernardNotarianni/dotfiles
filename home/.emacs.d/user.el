@@ -76,6 +76,7 @@
             "-I" "../include" "-I" "../../include"
             "-I" "../../../include"
             "-I" "../../lib" ;; for nitrogen
+            "-pa" "../_build/default/lib/cowboy/ebin" ;; cowboy behaviours
             source)
   :error-patterns
   ((warning line-start (file-name) ":" line ": Warning:" (message) line-end)
@@ -129,21 +130,40 @@
 (defun open-mvc ()
   "Open Phoenix MVC files in current frame"
   (interactive)
+  (let ((concept (choose-concept))
+        (color-scheme (choose-color-scheme)))
+    (open-mvc-from-root (mix-project-root) concept color-scheme)))
+
+(defun choose-concept ()
   (let* ((root (mix-project-root))
-         (files (phoenix-controllers root))
-         (concept (completing-read "Open MVC concept: " files)))
-    (open-mvc-from-root (mix-project-root) concept)))
+         (files (phoenix-controllers root)))
+    (completing-read "Open MVC concept: " files)))
+
+(defun choose-color-scheme ()
+  (let ((colors-string (mapcar 'number-to-string (number-sequence 0 (- (length mvc-colors-scheme) 1)))))
+    (nth (string-to-number (completing-read "Choose color scheme:" colors-string))
+         mvc-colors-scheme)))
 
 
-(defun open-mvc-from-root (root concept)
-  (let ((files (mvc-files root concept)))
+(defun open-mvc-from-root (root concept colors)
+  (let ((files (zip-color-scheme (mvc-files root concept) colors)))
     (delete-other-windows)
-    (find-file (first files))
+    (find-file-with-background (first files))
     (mapcar (lambda (f)
               (select-window (split-window-below))
-              (find-file f))
+              (find-file-with-background f))
             (cdr files))
     (balance-windows)))
+
+(defun find-file-with-background (file-dot-color)
+  (let ((file-name (car file-dot-color))
+        (background-color (cdr file-dot-color)))
+    (find-file file-name)
+    (buffer-face-set (list :background background-color))))
+
+(defun zip-color-scheme (list-of-mvc-files colors)
+  (mapcar* #'cons list-of-mvc-files colors))
+
 
 (defun mix-project-root ()
   (let ((current-path (if (string= "dired-mode" major-mode)
@@ -158,9 +178,17 @@
             "%s/web/controllers/%s_controller.ex"
             "%s/web/models/%s.ex")))
 
+; shemas computed with http://color.adobe.com
+(setq mvc-colors-scheme
+     '(("black" "black" "black" "black")
+       ("black" "#592E02" "#422F05" "#594B02" "#4F4F26")
+       ("black" "#36103B" "#34044A" "#280054")
+       ("black" "#042B0B" "#043B02" "#194506")
+       ))
+
 (defun phoenix-controllers (root-dir)
   (mapcar 'controller-name-to-concept
-          (directory-files (concat root-dir "/web/controllers") nil ".ex")))
+          (directory-files (concat root-dir "/web/controllers") nil "_controller.ex")))
 
 (defun controller-name-to-concept (file-name)
   (string-match "\\(.*\\)_controller.ex" file-name)

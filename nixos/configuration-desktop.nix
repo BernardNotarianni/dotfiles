@@ -61,6 +61,7 @@
   services.xserver.enable = true;
   services.xserver.layout = "fr";
   services.xserver.xkbOptions = "eurosign:e";
+  services.xserver.enableTCP = true;
 
   services.xserver.windowManager = {
     i3.enable = true;
