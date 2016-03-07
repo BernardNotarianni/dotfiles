@@ -167,3 +167,7 @@ Xft.hintstyle:  hintfull
 ! URxvt*tabbar-bg:                      colour
 ! URxvt*tabbar-fg:                      colour
  URxvt*url-launcher:                   chromium
+
+
+ xterm*dynamicColors: true
+ urxvt*dynamicColors: on

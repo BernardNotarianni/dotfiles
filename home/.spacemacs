@@ -29,6 +29,7 @@ values."
      git
      markdown
      org
+     deft
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -267,7 +268,8 @@ layers configuration. You are free to put any user code."
   (setq initial-buffer-choice
         (lambda ()
           (get-buffer "*spacemacs*")))
-  )
+  (setq-default js2-basic-offset 2)
+  (setq-default js-indent-level 2))
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.

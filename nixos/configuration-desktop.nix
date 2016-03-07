@@ -78,6 +78,7 @@
   users.extraUsers.bernard = {
     isNormalUser = true;
     password = "bernard";
+    extraGroups = [ "wheel" "docker" ];
     createHome = true;
   };
 
@@ -87,4 +88,5 @@
 #  programs.zsh.enable = true;
 #  users.defaultUserShell = "/run/current-system/sw/bin/zsh";
 
+   virtualisation.docker.enable = true;
 }
