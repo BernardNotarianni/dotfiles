@@ -127,8 +127,8 @@ values."
          :weight normal
          :width normal
          :powerline-scale 1.1)
-       '("Source Code Pro"
-         :size 18
+       '("DejaVu Sans Mono"
+         :size 24
          :weight normal
          :width normal
          :powerline-scale 1.1))
@@ -259,15 +259,28 @@ values."
 It is called immediately after `dotspacemacs/init'.  You are free to put almost
 any user code here.  The exception is org related code, which should be placed
 in `dotspacemacs/user-config'."
+  (set-language-environment 'utf-8)
+  (set-default-coding-systems 'utf-8)
+  (set-selection-coding-system 'utf-8)
+  (set-locale-environment "en.UTF-8")
+  (prefer-coding-system 'utf-8)
   )
 
 (defun dotspacemacs/user-config ()
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+
+  (setq backup-directory-alist
+        `((".*" . ,temporary-file-directory)))
+  (setq auto-save-file-name-transforms
+        `((".*" ,temporary-file-directory t)))
+  (setq create-lockfiles nil)
+
   (setq initial-buffer-choice
         (lambda ()
           (get-buffer "*spacemacs*")))
+
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2))
 
