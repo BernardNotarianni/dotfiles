@@ -20,7 +20,7 @@
     options snd_hda_intel enable=0,1
   '';
 
-  boot.kernelPackages = pkgs.linuxPackages_4_2;
+  boot.kernelPackages = pkgs.linuxPackages_4_3;
   
   fileSystems."/tmp" = {
     device = "tmpfs";
@@ -68,10 +68,10 @@
   # services.printing.enable = true;
 
 
-  # services.mysql = {
-  #  enable = true;
-  #  package = pkgs.mysql;
-  # };
+  services.mysql = {
+    enable = true;
+    package = pkgs.mysql;
+  };
 
 
   # Enable the X11 windowing system.
@@ -121,7 +121,8 @@
    { isNormalUser = true;
      home = "/home/bernard";
      description = "Bernard Notarianni";
-     group = "users";
+#     group = "users";
+     extraGroups = [ "wheel" "networkmanager" "docker" ];
      password = "bernard";
      createHome = true;
    };
@@ -149,4 +150,6 @@
     package = pkgs.postgresql94;
     authentication = "local all all ident";
   };
+
+  virtualisation.docker.enable = true; 
 }
