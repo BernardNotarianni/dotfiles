@@ -108,22 +108,22 @@ values."
    ;; List of themes, the first of the list is loaded when spacemacs starts.
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
-   dotspacemacs-themes '(hc-zenburn
+   dotspacemacs-themes '(monokai
+                         hc-zenburn
                          spacemacs-dark
                          spacemacs-light
                          solarized-light
                          solarized-dark
                          leuven
-                         monokai
                          zenburn)
    ;; If non nil the cursor color matches the state color in GUI Emacs.
    dotspacemacs-colorize-cursor-according-to-state t
    ;; Default font. story`powerline-scale' allows to quickly tweak the mode-line
    ;; size to make separators look not too crappy.
    dotspacemacs-default-font
-   (if (string= system-name "t450s")
-       '("Source Code Pro"
-         :size 14
+   (if (string= system-name "bernard-ThinkPad-T450s")
+       '("Ubuntu Mono"
+         :size 16
          :weight normal
          :width normal
          :powerline-scale 1.1)
@@ -281,6 +281,9 @@ layers configuration. You are free to put any user code."
         (lambda ()
           (get-buffer "*spacemacs*")))
 
+  (setq web-mode-markup-indent-offset 2) ; web-mode, html tag in html file
+  (setq web-mode-css-indent-offset 2) ; web-mode, css in html file
+  (setq web-mode-code-indent-offset 2) ; web-mode, js code in html file
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2))
 
