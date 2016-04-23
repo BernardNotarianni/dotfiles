@@ -48,6 +48,7 @@ values."
      nixos
      dockerfile
      colors
+     plantuml
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -109,6 +110,7 @@ values."
    ;; Press <SPC> T n to cycle to the next theme in the list (works great
    ;; with 2 themes variants, one dark and one light)
    dotspacemacs-themes '(monokai
+                         brin
                          hc-zenburn
                          spacemacs-dark
                          spacemacs-light
@@ -270,6 +272,7 @@ in `dotspacemacs/user-config'."
   "Configuration function for user code.
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
+  (semantic-mode 1)
 
   (setq backup-directory-alist
         `((".*" . ,temporary-file-directory)))
