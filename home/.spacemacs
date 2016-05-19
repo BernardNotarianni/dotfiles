@@ -29,7 +29,6 @@ values."
      git
      markdown
      org
-     deft
      ;; (shell :variables
      ;;        shell-default-height 30
      ;;        shell-default-position 'bottom)
@@ -38,7 +37,10 @@ values."
      ;; version-control
      themes-megapack
      erlang
+     own_erlang
      elixir
+     elm
+     haskell
      ;; python
      latex
      yaml
@@ -49,6 +51,7 @@ values."
      dockerfile
      colors
      plantuml
+     racket
      )
    ;; List of additional packages that will be installed without being
    ;; wrapped in a layer. If you need some configuration for these
@@ -130,7 +133,7 @@ values."
          :width normal
          :powerline-scale 1.1)
        '("DejaVu Sans Mono"
-         :size 24
+         :size 16
          :weight normal
          :width normal
          :powerline-scale 1.1))
@@ -288,7 +291,11 @@ layers configuration. You are free to put any user code."
   (setq web-mode-css-indent-offset 2) ; web-mode, css in html file
   (setq web-mode-code-indent-offset 2) ; web-mode, js code in html file
   (setq-default js2-basic-offset 2)
-  (setq-default js-indent-level 2))
+  (setq-default js-indent-level 2)
+  (add-to-list 'load-path "/home/bernard/haskell/tidal")
+  (require 'haskell-mode)
+  (require 'tidal)
+  )
 
 ;; Do not write anything past this comment. This is where Emacs will
 ;; auto-generate custom variable definitions.
