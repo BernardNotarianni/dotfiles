@@ -292,9 +292,6 @@ layers configuration. You are free to put any user code."
   (setq web-mode-code-indent-offset 2) ; web-mode, js code in html file
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2)
-  (add-to-list 'load-path "/home/bernard/haskell/tidal")
-  (require 'haskell-mode)
-  (require 'tidal)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
