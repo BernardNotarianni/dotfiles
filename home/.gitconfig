@@ -7,3 +7,5 @@
 	helper = cache --timeout 3600
 [commit]
 	template = /home/bernard/dotfiles/dev/git_commit_msg.txt
+[core]
+	editor = vim

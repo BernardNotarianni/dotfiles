@@ -292,6 +292,52 @@ layers configuration. You are free to put any user code."
   (setq web-mode-code-indent-offset 2) ; web-mode, js code in html file
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2)
+
+
+
+  (setq flycheck-erlang-include-path '("../include" "../deps"))
+
+  (defun fix-erlang-project-includes (project-root)
+    "Find erlang include paths for PROJECT-ROOT with project deps."
+    (setq-local flycheck-erlang-include-path
+                (append
+                 (s-split
+                  "\n"
+                  (shell-command-to-string
+                   (concat "find "
+                           project-root
+                           "/*"
+                           " -type d -name include"))
+                  t)
+                 (list project-root
+                       (concat project-root "/include")
+                       (concat project-root "/deps")
+                       default-directory
+                       (concat
+                        (locate-dominating-file
+                         default-directory
+                         "src") "include")
+                       (concat
+                        (locate-dominating-file
+                         default-directory
+                         "src") "deps")))))
+
+  (defun fix-erlang-project-code-path (project-root)
+    "Find erlang include paths for PROJECT-ROOT with project deps."
+    (let ((code-path
+           (split-string (shell-command-to-string
+                          (concat "find " project-root " -type d -name ebin")))
+           ))
+      (setq-local flycheck-erlang-library-path code-path)))
+
+  (defun my-erlang-hook ()
+    "Setup for erlang."
+    (let ((project-root (projectile-project-root)))
+      (fix-erlang-project-code-path project-root)
+      (fix-erlang-project-includes project-root)))
+
+  (add-hook 'erlang-mode-hook #'my-erlang-hook)
+
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
