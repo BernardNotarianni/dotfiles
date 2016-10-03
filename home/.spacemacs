@@ -303,56 +303,50 @@ layers configuration. You are free to put any user code."
   (setq fci-rule-color "gray12")
   (add-hook 'erlang-mode-hook 'fci-mode)
 
-  (defun ebm-find-rebar-top-recr (dirname)
-    (let* ((project-dir (locate-dominating-file dirname "rebar.config")))
-      (if project-dir
-          (let* ((parent-dir (file-name-directory (directory-file-name project-dir)))
-                 (top-project-dir (if (and parent-dir (not (string= parent-dir "/")))
-                                      (ebm-find-rebar-top-recr parent-dir)
-                                    nil)))
-            (if top-project-dir
-                top-project-dir
-              project-dir))
-              project-dir)))
 
-    (defun ebm-find-rebar-top ()
-      (interactive)
-      (let* ((dirname (file-name-directory (buffer-file-name)))
-             (project-dir (ebm-find-rebar-top-recr dirname)))
-        (if project-dir
-            project-dir
-          (erlang-flymake-get-app-dir))))
+  (setq flycheck-erlang-include-path '("../include" "../deps"))
 
-     (defun ebm-directory-dirs (dir name)
-        "Find all directories in DIR."
-        (unless (file-directory-p dir)
-          (error "Not a directory `%s'" dir))
-        (let ((dir (directory-file-name dir))
-              (dirs '())
-              (files (directory-files dir nil nil t)))
-            (dolist (file files)
-              (unless (member file '("." ".."))
-                (let ((absolute-path (expand-file-name (concat dir "/" file))))
-                  (when (file-directory-p absolute-path)
-                    (if (string= file name)
-                        (setq dirs (append (cons absolute-path
-                                                 (ebm-directory-dirs absolute-path name))
-                                           dirs))
-                      (setq dirs (append
-                                  (ebm-directory-dirs absolute-path name)
-                                  dirs)))))))
-              dirs))
+  (defun fix-erlang-project-includes (project-root)
+    "Find erlang include paths for PROJECT-ROOT with project deps."
+    (setq-local flycheck-erlang-include-path
+                (append
+                 (s-split
+                  "\n"
+                  (shell-command-to-string
+                   (concat "find "
+                           project-root
+                           "/*"
+                           " -type d -name include"))
+                  t)
+                 (list project-root
+                       (concat project-root "/include")
+                       (concat project-root "/deps")
+                       default-directory
+                       (concat
+                        (locate-dominating-file
+                         default-directory
+                         "src") "include")
+                       (concat
+                        (locate-dominating-file
+                         default-directory
+                         "src") "deps")))))
 
-    (defun ebm-get-deps-code-path-dirs ()
-      (ebm-directory-dirs (ebm-find-rebar-top) "ebin"))
+  (defun fix-erlang-project-code-path (project-root)
+    "Find erlang include paths for PROJECT-ROOT with project deps."
+    (let ((code-path
+           (split-string (shell-command-to-string
+                          (concat "find " project-root " -type d -name ebin")))
+           ))
+      (setq-local flycheck-erlang-library-path code-path)))
 
-    (defun ebm-get-deps-include-dirs ()
-      (ebm-directory-dirs (ebm-find-rebar-top) "include"))
+  (defun my-erlang-hook ()
+    "Setup for erlang."
+    (let ((project-root (projectile-project-root)))
+      (fix-erlang-project-code-path project-root)
+      (fix-erlang-project-includes project-root)))
 
-    (fset 'erlang-flymake-get-code-path-dirs 'ebm-get-deps-code-path-dirs)
-    (fset 'erlang-flymake-get-include-dirs-function 'ebm-get-deps-include-dirs)
+  (add-hook 'erlang-mode-hook #'my-erlang-hook)
 
-    (require 'erlang-flymake)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will
