@@ -154,18 +154,6 @@ mode "resize" {
 
 bindsym $mod+r mode "resize"
 
-# Enable/disable caps mode
-mode "caps" {
-        bindsym Caps_Lock mode "default"
-}
-bindsym Caps_Lock mode "caps"
-
-# Enable/disable numeric keyboard 
-mode "num" {
-        bindsym Num_Lock mode "default"
-}
-bindsym Num_Lock mode "num"
-
 # Start i3bar to display a workspace bar (plus the system information i3status
 # finds out, if available)
 bar {
@@ -219,12 +207,14 @@ focus_follows_mouse no
 for_window [instance="emacs-capture"] floating enable
 for_window [instance="emacs-capture"] border pixel 1
 
+for_window [title="Nexus"] floating enable
+
 bindsym $mod+less exec ~/dotfiles/bin/emacs-capture --eval '(org-capture nil "j")'
-bindsym $mod+exclam exec emacsclient -c
+bindsym $mod+exclam exec emacs
 
 # scrot & gpicview - root
 bindsym Print exec "scrot -e 'mv $f /tmp/ && gpicview /tmp/$f'"
 # scrot & gpicview - select window or rectangle
 bindsym $mod+Print exec "scrot -u -e 'mv $f /tmp/ && gpicview /tmp/$f'"
 
-exec --no-startup-id emacs --daemon
+# exec --no-startup-id emacs --daemon

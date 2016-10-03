@@ -59,7 +59,7 @@ values."
    ;; configuration in `dotspacemacs/user-config'.
    dotspacemacs-additional-packages '()
    ;; A list of packages and/or extensions that will not be install and loaded.
-   dotspacemacs-excluded-packages '()
+   dotspacemacs-excluded-packages '(smartparens)
    ;; If non-nil spacemacs will delete any orphan packages, i.e. packages that
    ;; are declared in a layer which is not a member of
    ;; the list `dotspacemacs-configuration-layers'. (default t)
@@ -276,6 +276,7 @@ in `dotspacemacs/user-config'."
 This function is called at the very end of Spacemacs initialization after
 layers configuration. You are free to put any user code."
   (semantic-mode 1)
+  (setq vc-follow-symlinks t)
 
   (setq backup-directory-alist
         `((".*" . ,temporary-file-directory)))
@@ -292,6 +293,66 @@ layers configuration. You are free to put any user code."
   (setq web-mode-code-indent-offset 2) ; web-mode, js code in html file
   (setq-default js2-basic-offset 2)
   (setq-default js-indent-level 2)
+
+  (setq erlang-indent-level 2)
+  (setq erlang-indent-guard 2)
+  (setq erlang-argument-indent 2)
+
+  ;; Show 80-column(setq fci-rule-width 1)
+  (setq fci-rule-width 1) ;; 1 pixel
+  (setq fci-rule-color "gray12")
+  (add-hook 'erlang-mode-hook 'fci-mode)
+
+  (defun ebm-find-rebar-top-recr (dirname)
+    (let* ((project-dir (locate-dominating-file dirname "rebar.config")))
+      (if project-dir
+          (let* ((parent-dir (file-name-directory (directory-file-name project-dir)))
+                 (top-project-dir (if (and parent-dir (not (string= parent-dir "/")))
+                                      (ebm-find-rebar-top-recr parent-dir)
+                                    nil)))
+            (if top-project-dir
+                top-project-dir
+              project-dir))
+              project-dir)))
+
+    (defun ebm-find-rebar-top ()
+      (interactive)
+      (let* ((dirname (file-name-directory (buffer-file-name)))
+             (project-dir (ebm-find-rebar-top-recr dirname)))
+        (if project-dir
+            project-dir
+          (erlang-flymake-get-app-dir))))
+
+     (defun ebm-directory-dirs (dir name)
+        "Find all directories in DIR."
+        (unless (file-directory-p dir)
+          (error "Not a directory `%s'" dir))
+        (let ((dir (directory-file-name dir))
+              (dirs '())
+              (files (directory-files dir nil nil t)))
+            (dolist (file files)
+              (unless (member file '("." ".."))
+                (let ((absolute-path (expand-file-name (concat dir "/" file))))
+                  (when (file-directory-p absolute-path)
+                    (if (string= file name)
+                        (setq dirs (append (cons absolute-path
+                                                 (ebm-directory-dirs absolute-path name))
+                                           dirs))
+                      (setq dirs (append
+                                  (ebm-directory-dirs absolute-path name)
+                                  dirs)))))))
+              dirs))
+
+    (defun ebm-get-deps-code-path-dirs ()
+      (ebm-directory-dirs (ebm-find-rebar-top) "ebin"))
+
+    (defun ebm-get-deps-include-dirs ()
+      (ebm-directory-dirs (ebm-find-rebar-top) "include"))
+
+    (fset 'erlang-flymake-get-code-path-dirs 'ebm-get-deps-code-path-dirs)
+    (fset 'erlang-flymake-get-include-dirs-function 'ebm-get-deps-include-dirs)
+
+    (require 'erlang-flymake)
   )
 
 ;; Do not write anything past this comment. This is where Emacs will

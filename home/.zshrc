@@ -84,4 +84,5 @@ source $ZSH/oh-my-zsh.sh
 
 alias e="emacsclient"
 
-export PATH=".:$PATH"
+export JAVA_HOME="/home/bernard/java/jdk1.8.0_102"
+export PATH=".:~/bin:$JAVA_HOME/bin:$PATH"
