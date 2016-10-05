@@ -301,8 +301,13 @@ layers configuration. You are free to put any user code."
   ;; Show 80-column(setq fci-rule-width 1)
   (setq fci-rule-width 1) ;; 1 pixel
   (setq fci-rule-color "gray12")
-  (add-hook 'erlang-mode-hook 'fci-mode)
 
+  (add-hook 'erlang-mode-hook 'fci-mode)
+  ;; enable whitespace when fci-mode activated
+  (require 'whitespace)
+  (setq-default whitespace-style '(face trailing))
+  (setq-default whitespace-line-column 80)
+  (global-whitespace-mode 1)
 
   (setq flycheck-erlang-include-path '("../include" "../deps"))
 
