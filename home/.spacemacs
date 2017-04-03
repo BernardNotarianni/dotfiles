@@ -18,6 +18,8 @@ values."
    ;; of a list then all discovered layers will be installed.
    dotspacemacs-configuration-layers
    '(
+     ruby
+     python
      ;; ----------------------------------------------------------------
      ;; Example of useful layers you may want to use right away.
      ;; Uncomment some layer names and press <SPC f e R> (Vim style) or
@@ -37,7 +39,6 @@ values."
      ;; version-control
      themes-megapack
      erlang
-     own_erlang
      elixir
      elm
      haskell
@@ -46,11 +47,7 @@ values."
      yaml
      html
      javascript
-     react
-     nixos
-     dockerfile
      colors
-     plantuml
      racket
      )
    ;; List of additional packages that will be installed without being
@@ -297,6 +294,8 @@ layers configuration. You are free to put any user code."
   (setq erlang-indent-level 2)
   (setq erlang-indent-guard 2)
   (setq erlang-argument-indent 2)
+
+  (setq elm-indent-offset 2)
 
   ;; Show 80-column(setq fci-rule-width 1)
   (setq fci-rule-width 1) ;; 1 pixel
